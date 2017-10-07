@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 
 public class Pedido {
 
@@ -13,7 +14,10 @@ public class Pedido {
 	}
 	
 	public Double getValorComDesconto(){
-		return this.valor - (this.valor*cliente.getDesconto()/100d);
+		Double valorPedido = this.valor - (this.valor*cliente.getDesconto()/100d);
+		DecimalFormat df = new DecimalFormat("0 .00");
+		String valorString = df.format(valorPedido);
+		return new Double(valorString.replaceAll(",", "."));
 	}
 
 	public Integer getNumero() {

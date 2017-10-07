@@ -1,6 +1,7 @@
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import junit.framework.Assert;
+import org.mockito.Mockito;
 
 public class PedidoTest {
 
@@ -21,8 +22,17 @@ public class PedidoTest {
 	@Test
 	public void testaDesconto() {
 		Double valor = pedido1.getValorComDesconto();
-		Assert.assertEquals(valor, 140.40, 0.00001);
+		Assert.assertEquals(valor, 146.85, 0.00001);
 
+	}
+	
+	@Test
+	public void testeComMock() {
+		Cliente cliente = Mockito.mock(Cliente.class);
+		Mockito.when(cliente.getDesconto()).thenReturn(10.2);
+		Pedido pedido = new Pedido(1002.40, cliente);
+		Assert.assertEquals(pedido.getValorComDesconto(), 900.15, 0.1);
+		Mockito.verify(cliente).getDesconto();
 	}
 
 }
